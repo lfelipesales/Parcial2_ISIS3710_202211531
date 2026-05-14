@@ -8,6 +8,8 @@ import {
 } from 'typeorm';
 
 import { Role } from '../../roles/entities/role.entity';
+import { Appointment } from 'src/appointments/entities/appointment.entity';
+import { ManyToOne } from 'typeorm/browser/decorator/relations/ManyToOne.js';
 
 @Entity('users')
 export class User {
@@ -43,4 +45,10 @@ export class User {
   })
   @JoinTable()
   roles!: Role[];
+
+  @ManyToOne(() => Appointment, (appointment) => appointment.users, {
+    eager: true,
+  })
+  @JoinTable()
+  appointments!: Role[];
 }
